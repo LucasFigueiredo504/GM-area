@@ -3,14 +3,14 @@ import { useForm } from "react-hook-form";
 import { AlertCircle, Shield, Sword, User, Lock, Mail } from "lucide-react";
 import { signup } from "@/actions/users";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 type FormData = {
   email: string;
   password: string;
-  rememberMe: boolean;
 };
 
-export default function SignInPage() {
+export default function SignUpPage() {
   const {
     register,
     handleSubmit,
@@ -19,17 +19,25 @@ export default function SignInPage() {
     defaultValues: {
       email: "",
       password: "",
-      rememberMe: false,
     },
   });
   const router = useRouter();
+  const [serverError, setServerError] = useState<string>("");
 
   const onSubmit = async (data: FormData) => {
     try {
+      setServerError("");
+
       await signup(data.email, data.password);
       router.push("/signin");
     } catch (error) {
       console.log("Error while signing up");
+
+      if (error instanceof Error) {
+        setServerError(error.message);
+      } else {
+        setServerError("An unexpected error occurred. Please try again.");
+      }
     }
   };
 
@@ -41,7 +49,7 @@ export default function SignInPage() {
           <div className="bg-indigo-600 p-3 rounded-full mb-3">
             <Sword className="h-8 w-8 text-white" />
           </div>
-          <h1 className="text-2xl font-bold text-white">RPG GM Shield</h1>
+          <h1 className="text-2xl font-bold text-white">RPG manager</h1>
           <p className="text-slate-400 mt-1">
             Sign up to command your adventure
           </p>
@@ -49,10 +57,14 @@ export default function SignInPage() {
 
         {/* Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-6">
-          {(errors.email || errors.password) && (
+          {(errors.email || errors.password || serverError) && (
             <div className="bg-red-900/20 border border-red-800 text-red-300 p-3 rounded-md flex items-start">
               <AlertCircle className="h-5 w-5 mr-2 mt-0.5 flex-shrink-0" />
-              <span>{errors.email?.message || errors.password?.message}</span>
+              <span>
+                {serverError ||
+                  errors.email?.message ||
+                  errors.password?.message}
+              </span>
             </div>
           )}
 
@@ -146,7 +158,7 @@ export default function SignInPage() {
 
           <div className="mt-6 text-center">
             <p className="text-sm text-slate-400">
-              Alreadyhave an account?{" "}
+              Already have an account?{" "}
               <a
                 href="/signin"
                 className="font-medium text-indigo-400 hover:text-indigo-300"

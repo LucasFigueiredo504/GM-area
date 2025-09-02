@@ -3,11 +3,11 @@ import { useForm } from "react-hook-form";
 import { AlertCircle, Shield, Sword, User, Lock, Mail } from "lucide-react";
 import { signIn } from "@/actions/users";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 type FormData = {
   email: string;
   password: string;
-  rememberMe: boolean;
 };
 
 export default function SignInPage() {
@@ -19,18 +19,25 @@ export default function SignInPage() {
     defaultValues: {
       email: "",
       password: "",
-      rememberMe: false,
     },
   });
   const router = useRouter();
+  const [serverError, setServerError] = useState<string>("");
 
   const onSubmit = async (data: FormData) => {
     try {
-      await signIn(data.email, data.password);
+      setServerError("");
 
+      await signIn(data.email, data.password);
       router.push("/");
     } catch (error) {
       console.log(error);
+
+      if (error instanceof Error) {
+        setServerError(error.message);
+      } else {
+        setServerError("An unexpected error occurred. Please try again.");
+      }
     }
   };
 
@@ -42,7 +49,7 @@ export default function SignInPage() {
           <div className="bg-indigo-600 p-3 rounded-full mb-3">
             <Sword className="h-8 w-8 text-white" />
           </div>
-          <h1 className="text-2xl font-bold text-white">RPG GM Shield</h1>
+          <h1 className="text-2xl font-bold text-white">RPG manager</h1>
           <p className="text-slate-400 mt-1">
             Sign in to command your adventure
           </p>
@@ -50,10 +57,14 @@ export default function SignInPage() {
 
         {/* Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-6">
-          {(errors.email || errors.password) && (
+          {(errors.email || errors.password || serverError) && (
             <div className="bg-red-900/20 border border-red-800 text-red-300 p-3 rounded-md flex items-start">
               <AlertCircle className="h-5 w-5 mr-2 mt-0.5 flex-shrink-0" />
-              <span>{errors.email?.message || errors.password?.message}</span>
+              <span>
+                {serverError ||
+                  errors.email?.message ||
+                  errors.password?.message}
+              </span>
             </div>
           )}
 
@@ -111,21 +122,7 @@ export default function SignInPage() {
             </div>
           </div>
 
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                type="checkbox"
-                {...register("rememberMe")}
-                className="h-4 w-4 bg-slate-800 border-slate-700 rounded text-indigo-600 focus:ring-indigo-600 focus:ring-offset-0"
-              />
-              <label
-                htmlFor="remember-me"
-                className="ml-2 block text-sm text-slate-400"
-              >
-                Remember me
-              </label>
-            </div>
+          <div className="flex items-end justify-between">
             <a
               href="#"
               className="text-sm font-medium text-indigo-400 hover:text-indigo-300"
