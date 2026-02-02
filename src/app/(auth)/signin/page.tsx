@@ -122,19 +122,19 @@ export default function SignInPage() {
             </div>
           </div>
 
-          <div className="flex items-end justify-between">
+          {/*  <div className="flex items-end justify-between">
             <a
               href="#"
               className="text-sm font-medium text-indigo-400 hover:text-indigo-300"
             >
               Forgot password?
             </a>
-          </div>
+          </div> */}
 
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-75 disabled:cursor-not-allowed"
+            className="w-full flex justify-center py-3 px-4 mt-12 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-75 disabled:cursor-not-allowed"
           >
             {isSubmitting ? (
               <>
@@ -177,14 +177,6 @@ export default function SignInPage() {
             </p>
           </div>
         </form>
-
-        {/* Footer */}
-        <div className="px-6 py-4 bg-slate-900/50 flex items-center justify-center space-x-2">
-          <Shield className="h-4 w-4 text-slate-500" />
-          <span className="text-xs text-slate-500">
-            Secure login - Your adventure awaits
-          </span>
-        </div>
       </div>
     </div>
   );

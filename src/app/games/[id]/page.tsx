@@ -1,14 +1,27 @@
-import React from 'react';
-import Link from 'next/link';
-import { Users, Layers, Dice6, Shield, Sword, Heart, Zap, ChevronLeft } from 'lucide-react';
+import React from "react";
+import Link from "next/link";
+import {
+  Users,
+  Layers,
+  Dice6,
+  Shield,
+  Sword,
+  Heart,
+  Zap,
+  ChevronLeft,
+} from "lucide-react";
 
-export default async  function GamePage ({ params }: { params: Promise<{ id: number }> }) {
-  const {id} = await params;
+export default async function GamePage({
+  params,
+}: {
+  params: Promise<{ id: number }>;
+}) {
+  const { id } = await params;
   return (
     <div className="min-h-screen bg-slate-950">
       {/* Main Content */}
       <div className="max-w-6xl mx-auto px-6 py-12">
-         <Link
+        <Link
           href={"/"}
           className="flex gap-2 items-center text-sm text-slate-400 hover:text-slate-200"
         >
@@ -25,59 +38,12 @@ export default async  function GamePage ({ params }: { params: Promise<{ id: num
 
         {/* Navigation Cards */}
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {/* Characters Card */}
-          <Link href={`/games/${id}/characters`}>
-            <div className="group relative bg-slate-950 border-1 border-emerald-500/30 rounded-xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-300 hover:border-emerald-500/60 backdrop-blur-sm cursor-pointer">
-              {/* Glow effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              
-              <div className="relative p-8">
-                {/* Icon */}
-                <div className="flex items-center justify-center w-16 h-16 bg-emerald-500/20 rounded-full border border-emerald-500/30 mb-6 group-hover:bg-emerald-500/30 transition-colors">
-                  <Users className="h-8 w-8 text-emerald-400" />
-                </div>
-
-                {/* Title */}
-                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-emerald-100 transition-colors">
-                  Character Manager
-                </h3>
-
-                {/* Description */}
-                <p className="text-slate-300 mb-6 leading-relaxed">
-                  Create and manage your RPG characters. Track health, mana, 
-                  attack, defense, and other vital stats with an intuitive interface.
-                </p>
-
-                {/* Features */}
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3 text-slate-400">
-                    <Heart className="h-4 w-4 text-red-400" />
-                    <span className="text-sm">Health & Mana tracking</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-slate-400">
-                    <Sword className="h-4 w-4 text-orange-400" />
-                    <span className="text-sm">Combat statistics</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-slate-400">
-                    <Shield className="h-4 w-4 text-blue-400" />
-                    <span className="text-sm">Ally & enemy management</span>
-                  </div>
-                </div>
-
-                {/* Arrow indicator */}
-                <div className="absolute top-6 right-6 text-emerald-400 group-hover:translate-x-1 transition-transform">
-                  →
-                </div>
-              </div>
-            </div>
-          </Link>
-
           {/* Tables Card */}
           <Link href={`/games/${id}/tables`}>
             <div className="group relative bg-slate-950 border-1 border-indigo-500/30 rounded-xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-300 hover:border-indigo-500/60 backdrop-blur-sm cursor-pointer">
               {/* Glow effect */}
               <div className="absolute inset-0 bg-gradient-to-br from-indigo-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              
+
               <div className="relative p-8">
                 {/* Icon */}
                 <div className="flex items-center justify-center w-16 h-16 bg-indigo-500/20 rounded-full border border-indigo-500/30 mb-6 group-hover:bg-indigo-500/30 transition-colors">
@@ -91,7 +57,7 @@ export default async  function GamePage ({ params }: { params: Promise<{ id: num
 
                 {/* Description */}
                 <p className="text-slate-300 mb-6 leading-relaxed">
-                  Organize your campaigns with custom tables. Create, edit, and 
+                  Organize your campaigns with custom tables. Create, edit, and
                   manage game data with flexible columns and random generators.
                 </p>
 
@@ -110,10 +76,47 @@ export default async  function GamePage ({ params }: { params: Promise<{ id: num
                     <span className="text-sm">Dynamic content management</span>
                   </div>
                 </div>
+              </div>
+            </div>
+          </Link>
+          {/* Characters Card */}
+          <Link href={`/games/${id}/characters`}>
+            <div className="group relative bg-slate-950 border-1 border-emerald-500/30 rounded-xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-300 hover:border-emerald-500/60 backdrop-blur-sm cursor-pointer">
+              {/* Glow effect */}
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                {/* Arrow indicator */}
-                <div className="absolute top-6 right-6 text-indigo-400 group-hover:translate-x-1 transition-transform">
-                  →
+              <div className="relative p-8">
+                {/* Icon */}
+                <div className="flex items-center justify-center w-16 h-16 bg-emerald-500/20 rounded-full border border-emerald-500/30 mb-6 group-hover:bg-emerald-500/30 transition-colors">
+                  <Users className="h-8 w-8 text-emerald-400" />
+                </div>
+
+                {/* Title */}
+                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-emerald-100 transition-colors">
+                  Character Manager
+                </h3>
+
+                {/* Description */}
+                <p className="text-slate-300 mb-6 leading-relaxed">
+                  Create and manage your RPG characters. Track health, mana,
+                  attack, defense, and other vital stats with an intuitive
+                  interface.
+                </p>
+
+                {/* Features */}
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3 text-slate-400">
+                    <Heart className="h-4 w-4 text-red-400" />
+                    <span className="text-sm">Health & Mana tracking</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-slate-400">
+                    <Sword className="h-4 w-4 text-orange-400" />
+                    <span className="text-sm">Combat statistics</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-slate-400">
+                    <Shield className="h-4 w-4 text-blue-400" />
+                    <span className="text-sm">Ally & enemy management</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -142,4 +145,4 @@ export default async  function GamePage ({ params }: { params: Promise<{ id: num
       </div>
     </div>
   );
-};
+}
