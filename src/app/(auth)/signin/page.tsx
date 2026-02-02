@@ -25,20 +25,16 @@ export default function SignInPage() {
   const [serverError, setServerError] = useState<string>("");
 
   const onSubmit = async (data: FormData) => {
-    try {
-      setServerError("");
+    setServerError("");
 
-      await signIn(data.email, data.password);
-      router.push("/");
-    } catch (error) {
-      console.log(error);
+    const result = await signIn(data.email, data.password);
 
-      if (error instanceof Error) {
-        setServerError(error.message);
-      } else {
-        setServerError("An unexpected error occurred. Please try again.");
-      }
+    if (result?.error) {
+      setServerError(result.error);
+      return;
     }
+
+    router.push("/");
   };
 
   return (

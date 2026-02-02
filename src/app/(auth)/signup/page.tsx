@@ -25,20 +25,16 @@ export default function SignUpPage() {
   const [serverError, setServerError] = useState<string>("");
 
   const onSubmit = async (data: FormData) => {
-    try {
-      setServerError("");
+    setServerError("");
 
-      await signup(data.email, data.password);
-      router.push("/signin");
-    } catch (error) {
-      console.log("Error while signing up");
+    const result = await signup(data.email, data.password);
 
-      if (error instanceof Error) {
-        setServerError(error.message);
-      } else {
-        setServerError("An unexpected error occurred. Please try again.");
-      }
+    if (result?.error) {
+      setServerError(result.error);
+      return;
     }
+
+    router.push("/signin");
   };
 
   return (
