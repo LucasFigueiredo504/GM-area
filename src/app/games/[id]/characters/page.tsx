@@ -21,8 +21,8 @@ interface Character {
   attack: number;
   hp: number;
   maxHp: number;
- mana: number;
- maxMana: number;
+  mana: number;
+  maxMana: number;
   defense: number;
   type: "ally" | "enemy";
 }
@@ -102,30 +102,30 @@ const CharacterCard: React.FC<CharacterCardProps> = ({
   const handleIncrement = (field: keyof Character, amount: number = 1) => {
     const currentValue = character[field] as number;
     let newValue = currentValue + amount;
-    
+
     // Special handling for HP to not exceed maxHp
     if (field === "hp") {
       newValue = Math.min(newValue, character.maxHp);
     }
-    
+
     // Special handling for mana to not exceed maxMana
     if (field === "mana") {
       newValue = Math.min(newValue, character.maxMana);
     }
-    
+
     // Prevent negative values
     newValue = Math.max(0, newValue);
-    
+
     onUpdateCharacter(character.id, { [field]: newValue });
   };
 
   const handleDecrement = (field: keyof Character, amount: number = 1) => {
     const currentValue = character[field] as number;
     let newValue = currentValue - amount;
-    
+
     // Prevent negative values
     newValue = Math.max(0, newValue);
-    
+
     onUpdateCharacter(character.id, { [field]: newValue });
   };
 
@@ -316,8 +316,8 @@ const CharacterCard: React.FC<CharacterCardProps> = ({
                 hpPercentage > 60
                   ? "bg-green-500"
                   : hpPercentage > 30
-                  ? "bg-yellow-500"
-                  : "bg-red-500"
+                    ? "bg-yellow-500"
+                    : "bg-red-500"
               }`}
               style={{ width: `${Math.max(0, Math.min(100, hpPercentage))}%` }}
             />
@@ -439,12 +439,14 @@ const CharacterCard: React.FC<CharacterCardProps> = ({
             <div
               className={`h-full transition-all duration-500 ${
                 manaPercentage > 60
-                  ? "bg-blue-500"
+                  ? "bg-indigo-600"
                   : manaPercentage > 30
-                  ? "bg-cyan-500"
-                  : "bg-purple-500"
+                    ? "bg-cyan-500"
+                    : "bg-purple-500"
               }`}
-              style={{ width: `${Math.max(0, Math.min(100, manaPercentage))}%` }}
+              style={{
+                width: `${Math.max(0, Math.min(100, manaPercentage))}%`,
+              }}
             />
           </div>
         </div>
@@ -462,7 +464,9 @@ const CharacterCard: React.FC<CharacterCardProps> = ({
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
                 <Sword className="h-4 w-4 text-orange-400" />
-                <span className="text-slate-300 text-sm font-medium">Attack</span>
+                <span className="text-slate-300 text-sm font-medium">
+                  Attack
+                </span>
               </div>
               <div className="flex items-center gap-1">
                 <button
@@ -640,7 +644,7 @@ export default function CharactersPage() {
       attack: Math.floor(Math.random() * 10) + 8,
       hp: Math.floor(Math.random() * 50) + 80,
       maxHp: Math.floor(Math.random() * 50) + 80,
-       mana: Math.floor(Math.random() * 30) + 50,
+      mana: Math.floor(Math.random() * 30) + 50,
       maxMana: Math.floor(Math.random() * 30) + 50,
       defense: Math.floor(Math.random() * 8) + 5,
       type,
@@ -654,12 +658,12 @@ export default function CharactersPage() {
 
   const handleUpdateCharacter = (
     id: number,
-    updatedFields: Partial<Character>
+    updatedFields: Partial<Character>,
   ) => {
     setCharacters(
       characters.map((char) =>
-        char.id === id ? { ...char, ...updatedFields } : char
-      )
+        char.id === id ? { ...char, ...updatedFields } : char,
+      ),
     );
   };
 
@@ -671,12 +675,12 @@ export default function CharactersPage() {
     <div className="min-h-screen bg-slate-950">
       <div className="container mx-auto p-6">
         <header className="mb-8 text-center">
-         <Link
-          href={`/games/${id}`}
-          className="flex gap-2 items-center text-sm text-slate-400 hover:text-slate-200"
-        >
-          <ChevronLeft className="h-4 w-4" /> Back
-        </Link>
+          <Link
+            href={`/games/${id}`}
+            className="flex gap-2 items-center text-sm text-slate-400 hover:text-slate-200"
+          >
+            <ChevronLeft className="h-4 w-4" /> Back
+          </Link>
           <h1 className="text-4xl font-bold text-white mb-2">Battle Arena</h1>
           <p className="text-slate-400">
             Manage your allies and enemies for epic encounters
